@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,21 +28,15 @@ import java.util.Set;
 @Entity
 public final class Account extends OrchidoraEntity implements UserDetails {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
-
-    private String image;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Sex sex;
-
-    @Column(nullable = false)
-    private String phone;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String address;
@@ -56,8 +51,8 @@ public final class Account extends OrchidoraEntity implements UserDetails {
     @Column(nullable = false)
     private ActiveStatus status;
 
-    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private Set<AccountPayment> payments;
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private Set<Payment> payments;
 
     @Override
     public boolean equals(Object o) {

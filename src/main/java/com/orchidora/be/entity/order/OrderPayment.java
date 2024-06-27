@@ -1,6 +1,6 @@
 package com.orchidora.be.entity.order;
 
-import com.orchidora.be.entity.account.AccountPayment;
+import com.orchidora.be.entity.account.Payment;
 import com.orchidora.be.entity.common.OrchidoraEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,7 @@ public final class OrderPayment extends OrchidoraEntity {
     private Order order;
 
     @ManyToOne(optional = false)
-    private AccountPayment payment;
+    private Payment payment;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
