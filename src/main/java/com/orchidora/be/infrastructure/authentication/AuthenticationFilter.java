@@ -1,7 +1,9 @@
 package com.orchidora.be.infrastructure.authentication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orchidora.be.application.exception.OrchidoraException;
 import com.orchidora.be.entity.account.Account;
+import com.orchidora.be.infrastructure.error.OrchidoraErrorResponse;
 import com.orchidora.be.infrastructure.repository.AccountRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,10 +25,12 @@ import java.util.UUID;
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final AccountRepository accountRepository;
+    private final ObjectMapper objectMapper;
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain)
+            throws IOException, ServletException {
         try {
             final String bearerToken = request.getHeader("Authorization");
             if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
@@ -37,8 +41,17 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(account,
                         null, account.getAuthorities()));
             }
-        } finally {
             filterChain.doFilter(request, response);
+        } catch (IllegalArgumentException | OrchidoraException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("application/json; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            final OrchidoraErrorResponse errorResponse = OrchidoraErrorResponse.builder()
+                    .target("token")
+                    .message(e.getMessage())
+                    .build();
+            response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+            response.getWriter().flush();
         }
     }
 }

@@ -1,5 +1,6 @@
-package com.orchidora.be.infrastructure.authentication;
+package com.orchidora.be.infrastructure.security;
 
+import com.orchidora.be.infrastructure.authentication.AuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -34,9 +35,11 @@ public class SecurityConfiguration {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(c -> c.requestMatchers(HttpMethod.POST, resolveApiPath("/accounts/auth"))
                         .permitAll())
-                .authorizeHttpRequests(c -> c.requestMatchers(HttpMethod.POST, resolveApiPath("/accounts"))
+                .authorizeHttpRequests(c -> c.requestMatchers(HttpMethod.POST, resolveApiPath("/accounts/**"))
                         .permitAll())
                 .authorizeHttpRequests(c -> c.requestMatchers("/h2-console/**")
+                        .permitAll())
+                .authorizeHttpRequests(c -> c.requestMatchers(HttpMethod.GET, resolveApiPath("/docs/**"))
                         .permitAll());
         return http.build();
     }

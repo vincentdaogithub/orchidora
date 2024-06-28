@@ -1,6 +1,7 @@
 package com.orchidora.be.application.account;
 
 import com.orchidora.be.application.account.response.AccountResponse;
+import com.orchidora.be.application.common.OrchidoraController;
 import com.orchidora.be.application.common.OrchidoraMapper;
 import com.orchidora.be.entity.account.Account;
 import com.orchidora.be.entity.account.Role;
@@ -54,7 +55,7 @@ public final class RegisterAccount {
     @RestController
     @RequiredArgsConstructor
     @Tag(name = "accounts")
-    public static final class RegisterAccountController {
+    public static final class RegisterAccountController extends OrchidoraController {
 
         private final RegisterAccountService service;
 

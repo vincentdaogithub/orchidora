@@ -1,0 +1,15 @@
+INSERT INTO account (id, version, name, role, phone_number, address, email, password, status)
+VALUES ('550e8400-e29b-41d4-a716-446655440000', 0, 'Alice Johnson', 'USER', '12345678901',
+        '123 Elm St, Springfield, IL', 'alice.johnson@example.com',
+        '$2a$10$XGaqDcvo64DkeE3WK98h7eh5rCZV6ho1OnEskAbqSf3YTjE5r8z/m', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440001', 0, 'Bob Smith', 'USER', '12345678901',
+        '456 Maple Ave, Springfield, IL', 'bob.smith@example.com',
+        '$2a$10$F9iZ4AOzPOdduJ57heswf.WL96WPk44IBWJRDbV2.IVQNPyqXJW9q', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440002', 0, 'Carol White', 'USER', '12345678901', '789 Oak Dr, Springfield, IL',
+        'carol.white@example.com', '$2a$10$TEpZjewiDakoX42HfmNde.n1alCjYTGyIhWigC7zzcSANnobn4QZi', 'INACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440003', 0, 'David Brown', 'MANAGER', '12345678901',
+        '101 Pine St, Springfield, IL', 'david.brown@example.com',
+        '$2a$10$Jf6TQL2a2esiU3EglahU6e.R6sfboAaP1S8A/CI3WONA.DXHJZQee', 'ACTIVE'),
+       ('550e8400-e29b-41d4-a716-446655440004', 0, 'Eve Davis', 'MANAGER', '12345678901',
+        '202 Birch Blvd, Springfield, IL', 'eve.davis@example.com',
+        '$2a$10$lesILI6vY6wSBmPeHvQzauPY7zmpTA6C1Wqreie8LeKSbG9gw8.uO', 'PENDING');

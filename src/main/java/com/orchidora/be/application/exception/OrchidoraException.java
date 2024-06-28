@@ -1,7 +1,19 @@
 package com.orchidora.be.application.exception;
 
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
 @SuppressWarnings("unused")
 public class OrchidoraException extends RuntimeException {
+
+    private HttpStatus status;
+    private String target;
+
+    public OrchidoraException(HttpStatus status, String target, String message) {
+        super(message);
+        this.target = target;
+    }
 
     public OrchidoraException() {
     }
