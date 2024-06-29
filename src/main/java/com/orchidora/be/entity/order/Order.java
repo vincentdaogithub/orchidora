@@ -29,7 +29,7 @@ public final class Order extends OrchidoraEntity {
     private String accountName;
 
     @Column(nullable = false)
-    private String phone;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String address;

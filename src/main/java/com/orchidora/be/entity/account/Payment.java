@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-public final class AccountPayment extends OrchidoraEntity {
+public final class Payment extends OrchidoraEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Account account;
