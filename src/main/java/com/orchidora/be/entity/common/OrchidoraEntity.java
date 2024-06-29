@@ -1,9 +1,8 @@
 package com.orchidora.be.entity.common;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +20,20 @@ import java.util.UUID;
 public abstract class OrchidoraEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Version
-    private Long version;
+    private Integer version;
+
+    @PrePersist
+    public void prePersist() {
+        if (id == null) {
+            this.id = UUID.randomUUID();
+        }
+        if (version == null) {
+            this.version = 0;
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
